@@ -12,9 +12,6 @@ export const SpeedProvider = ({children}) => {
     const value = isForward ? trueValue : falseValue;
     useEffect(() => {
         const time = (trueValue.time * 1000) + RIGHT_DELAY;
-        if(!isForward){
-            setIsForward(true)
-        }
         setTimeout(() => {
             setIsForward(false)
         }, time);
