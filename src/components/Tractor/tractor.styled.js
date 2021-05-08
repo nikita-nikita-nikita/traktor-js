@@ -56,4 +56,5 @@ export const TractorCabin = styled.div`
 
 export const TractorContainer = styled.div`
   width: 100%;
+  overflow: hidden;
 `;

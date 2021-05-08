@@ -34,7 +34,7 @@ class SpeedService {
     };
 
     getTime = (linearSpeed) => {
-        return this.tractorWidth + document.body.clientWidth / linearSpeed;
+        return (this.tractorWidth + document.body.clientWidth) / linearSpeed;
     }
 }
 

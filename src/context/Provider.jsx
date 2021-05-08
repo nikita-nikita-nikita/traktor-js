@@ -1,12 +1,33 @@
 import speedService from 'services/speed.service';
 import {Provider} from "./speed.context";
-import {useState} from "react";
+import {useEffect, useMemo, useState} from "react";
+
+const RIGHT_DELAY = 1000;
+const LEFT_DELAY = 2000;
 
 export const SpeedProvider = ({children}) => {
-    console.log(document.body.clientWidth )
     const [isForward, setIsForward] = useState(true);
+    const trueValue = useMemo(() => getValue(true), []);
+    const falseValue = useMemo(() => getValue(false), []);
+    const value = isForward ? trueValue : falseValue;
+    useEffect(() => {
+        const time = (trueValue.time * 1000) + RIGHT_DELAY;
+        if(!isForward){
+            setIsForward(true)
+        }
+        setTimeout(() => {
+            setIsForward(false)
+        }, time);
+        setInterval(() => {
+            setIsForward(true)
+            setTimeout(() => {
+                setIsForward(false)
+            }, time);
+        }, time + falseValue.time*1000 + LEFT_DELAY);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
-        <Provider value={getValue(isForward)}>
+        <Provider value={value}>
             {children}
         </Provider>
     );
@@ -27,5 +48,6 @@ function getValue(isForward) {
         main: speed,
     };
     value.tractorWidth = speedService.tractorWidth
+    value.isForward = isForward;
     return value;
 }

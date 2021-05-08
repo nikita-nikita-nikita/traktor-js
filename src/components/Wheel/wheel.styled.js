@@ -1,10 +1,25 @@
-import styled from "styled-components";
-import { layout, position } from 'styled-system'
+import styled, {keyframes} from "styled-components";
+import { layout, position } from 'styled-system';
+
+const forwardRotateKeyframe = keyframes`
+  from {
+    transform: rotate(-360deg);
+  }
+`;
+
+const reverseRotateKeyframe = keyframes`
+  from {
+    transform: rotate(360deg);
+  }
+`;
 
 export const Wheel = styled.div`
   border-radius: 50%;
   background: #000;
   position: relative;
+  animation: ${({isForward}) => isForward ? forwardRotateKeyframe : reverseRotateKeyframe} linear;
+  animation-duration: ${({speed}) => 1 / speed}s;
+  animation-iteration-count: infinite;
   ${layout}
 `;
 

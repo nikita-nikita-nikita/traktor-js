@@ -3,16 +3,15 @@ import {Wheels, Tractor as TractorStyled, TractorBody, TractorCabin, TractorCont
 import {useSpeedContext} from "context";
 
 export const Tractor = () => {
-    const data = useSpeedContext();
-    console.log({data})
+    const {time, wheelsSpeed:{small:smallSpeed, main:mainSpeed}, isForward, radiuses:{small, main}} = useSpeedContext();
      return (
         <TractorContainer >
-            <TractorStyled>
+            <TractorStyled isForward={isForward} time={time}>
                 <TractorCabin/>
                 <TractorBody/>
                 <Wheels>
-                    <Wheel size={150}/>
-                    <Wheel />
+                    <Wheel size={main} speed={mainSpeed} isForward={isForward}/>
+                    <Wheel size={small} speed={smallSpeed} isForward={isForward}/>
                 </Wheels>
             </TractorStyled>
         </TractorContainer>
